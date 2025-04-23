@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Resume{% endblock %}
+{% block content %}
+
+<!-- Image of the Himalayan mountain Range from Nepal where I was born -->
+<div class="mb-4">
+  <img src="{{ url_for('static', filename='images/himalayas.jpeg') }}" alt="Himalayas" class="img-fluid w-100 rounded shadow">
+</div>
+
+
+<div class="d-flex align-items-center mb-4">
+  <img src="{{ url_for('static', filename='images/mle_robot.jpeg') }}" alt="My Picture" class="rounded shadow me-3" style="width: 120px;">
+  <div>
+    <h1 class="mb-0">Sagun Shrestha</h1>
+    <p class="text-muted">Data Engineer | Python Developer | AI Enthusiast</p>
+  </div>
+</div>
+
+<!-- My PDF resume in an iframe for easy scroll -->
+<div class="mb-4">
+  <h3 class="mb-3">Resume</h3>
+  <iframe src="{{ url_for('static', filename='files/SagunShrestha.docx.pdf') }}"
+          width="100%" height="600px" style="border: none;">
+  </iframe>
+</div>
+
+{% endblock %}

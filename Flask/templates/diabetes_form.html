@@ -1,0 +1,228 @@
+{% extends 'bio.html' %}
+{% block title %}General Projects{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+  <h1 class="mb-4">Diabetes Readmission Prediction</h1>
+
+  <form method="POST" action="/mle" class="row g-3">
+    <div class="col-md-4">
+      <label for="Age" class="form-label"> Age</label>
+      <input type="number" name="age" class="form-control" min="1" max="120" required />
+    </div>
+
+    <div class="col-md-4">
+      <label for="Gender" class="form-label">Gender</label>
+      <select name="gender" id="gender" class="form-select">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Race</label>
+      <select name="race" class="form-select" required>
+        <option value="Caucasian">Caucasian</option>
+        <option value="AfricanAmerican">AfricanAmerican</option>
+        <option value="Asian">Asian</option>
+        <option value="Hispanic">Hispanic</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="Admission Type Id" class="form-label">Emergency Admit?</label>
+      <select name="admission_type_id" class="form-select">
+        <option value="1">Yes</option>
+        <option value="3">No</option>
+        <option value="5">Not Available</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="Discharge Disposition" class="form-label">Discharge Disposition</label>
+      <select name="discharge_disposition_id" class="form-select">
+        <option value="1">Discharge to Home</option>
+        <option value="2">Transferred to another Facility</option>
+        <option value="3">In Hopice/ Expired</option>
+        <option value="4">Readmitted</option>
+        <option value="5">Others/Unknown</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <label for="admission_source_id" class="form-label">Admission Source:</label>
+      <select name="admission_source_id" id="admission_source_id" class="form-select" required>
+        <option value="1">Physician Referral</option>
+        <option value="2">Clinic Referral</option>
+        <option value="3">HMO Referral</option>
+        <option value="4">Transfer from a Hospital</option>
+        <option value="5">Transfer from a Skilled Nursing Facility (SNF)</option>
+        <option value="6">Transfer from another Health Care Facility</option>
+        <option value="7">Emergency Room</option>
+        <option value="8">Court/Law Enforcement</option>
+        <option value="10">Transfer from Critical Access Hospital</option>
+        <option value="11">Normal Delivery</option>
+        <option value="12">Premature Delivery</option>
+        <option value="13">Sick Baby</option>
+        <option value="14">Extramural Birth</option>
+        <option value="18">Readmission to Same Home Health Agency</option>
+        <option value="19">Not Mapped</option>
+        <option value="21">Transfer from Hospital Inpt/Same Fac Reslt in a Sep Claim</option>
+        <option value="22">Born Inside This Hospital</option>
+        <option value="23">Born Outside This Hospital</option>
+        <option value="24">Transfer from Ambulatory Surgery Center</option>
+        <option value="25">Transfer from Hospice</option>
+        <option value="27">Unknown</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="time_in_hospital" class="form-label">Days in Hospital:</label>
+      <select name="time_in_hospital" id="time_in_hospital" class="form-select" required>
+        {% for i in range(1, 15) %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Number of Lab Procedures</label>
+      <input type="number" name="num_lab_procedures" class="form-control" min="0" max="132" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Number of Lab Procedures Other than labs</label>
+      <input type="number" name="num_procedures" class="form-control" min="0" max="6" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Number of Medications</label>
+      <input type="number" name="num_medications" class="form-control" min="1" max="81" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Total Outpatient Visits</label>
+      <input type="number" name="number_outpatient" class="form-control" min="0" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Emergency Visits</label>
+      <input type="number" name="number_emergency" class="form-control" min="0" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Total Inpatient Visits</label>
+      <input type="number" name="number_inpatient" class="form-control" min="0" required />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Total Number of Diagnoses</label>
+      <input type="number" name="number_diagnoses" class="form-control" min="1" required />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Max Glucose Serum</label>
+      <select name="max_glu_serum" class="form-select">
+        <option value="not measured">Not Measured</option>
+        <option value="Norm">Normal</option>
+        <option value=">200">Greated than 200</option>
+        <option value=">300">Greater than 300</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">A1C Result:</label>
+      <select name="A1Cresult" class="form-select">
+        <option value="not measured">Not Measured</option>
+        <option value="Norm">Normal</option>
+        <option value=">7">Greater than 7</option>
+        <option value=">8">Greater than 8</option>
+      </select>
+    </div>
+
+    {% set drugs = [
+      'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide',
+      'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide',
+      'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone',
+      'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin',
+      'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone',
+      'metformin-pioglitazone'
+    ] %}
+    {% for drug in drugs %}
+    <div class="col-md-3">
+      <label class="form-label">{{ drug.replace('-', ' ').title() }}:</label>
+      <select name="{{ drug }}" class="form-select">
+        <option value="No">No</option>
+        <option value="Steady">Steady</option>
+        <option value="Up">Up</option>
+        <option value="Down">Down</option>
+      </select>
+    </div>
+    {% endfor %}
+
+    <div class="col-md-6">
+      <label class="form-label">Change in Medication:</label>
+      <select name="change" class="form-select">
+        <option value="No">No</option>
+        <option value="Ch">Yes</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Currently on Diabetes Medication?</label>
+      <select name="diabetesMed" class="form-select">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Diagnosis 1:</label>
+      <select name="diag_1" class="form-select" required>
+        <option value="250">Diabetic-specific diagnosis (ICD-9: 250)</option>
+        <option value="249">Diabetic-specific diagnosis (ICD-9: 249)</option>
+        <option value="other">No</option>
+      </select>
+    </div>
+    
+    <div class="col-md-4">
+      <label class="form-label">Diagnosis 2:</label>
+      <select name="diag_2" class="form-select" required>
+        <option value="250">Diabetic-specific diagnosis (ICD-9: 250)</option>
+        <option value="249">Diabetic-specific diagnosis (ICD-9: 249)</option>
+        <option value="other">No</option>
+      </select>
+    </div>
+    
+    <div class="col-md-4">
+      <label class="form-label">Diagnosis 3:</label>
+      <select name="diag_3" class="form-select" required>
+        <option value="250">Diabetic-specific diagnosis (ICD-9: 250)</option>
+        <option value="249">Diabetic-specific diagnosis (ICD-9: 249)</option>
+        <option value="other">No</option>
+      </select>
+    </div>
+    
+
+    <div class="col-12 text-center mt-4">
+      <input type="submit" value="Predict Readmission" class="btn btn-success btn-lg" />
+    </div>
+  </form>
+
+  {% if results %}
+  <div class="alert alert-warning mt-5">
+    <h4>Disclaimer:</h4>
+    <p>The predicted readmission rate for diabetes is generated by an algorithm developed as part of my Master's in Data Science project. This prediction is for informational purposes only and should not be considered medical advice. Please consult a qualified medical professional for an accurate assessment of readmission risk.</p>
+  </div>
+
+  <h2>Result: {{ results }}</h2>
+
+  {% if my_plot %}
+  <h3>Waterfall Plot</h3>
+  <img src="{{ url_for('static', filename=my_plot) }}" alt="SHAP Plot" width="600">
+  {% endif %}
+  {% endif %}
+</div>
+
+{% endblock %}
