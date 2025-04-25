@@ -1,7 +1,54 @@
 {% extends 'bio.html' %}
 {% block title %}General Projects{% endblock %}
-{% block content %}
-<h1>General Projects</h1>
 
-<a href="https://github.com/slavdefense">Github</a>
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">General Projects</h1>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Casino Slot Game</h5>
+          <p class="card-text">A fun browser-based slot machine game (not real money).</p>
+          <a href="https://sagun-shresthaslotmachine.surge.sh/" class="btn btn-outline-primary" target="_blank">View Live</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Bike Trail Blog App</h5>
+          <p class="card-text">Full-stack blog platform to share and explore biking trails.</p>
+          <a href="https://github.com/slavdefense/mountainbike-trail-youlove" class="btn btn-outline-primary" target="_blank">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Backlog Project Manager</h5>
+          <p class="card-text">A MERN stack app to organize tasks and manage workflows.</p>
+          <a href="https://github.com/slavdefense/Backlog-MERN-Stack" class="btn btn-outline-primary" target="_blank">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Car Rental Platform</h5>
+          <p class="card-text">A peer-to-peer vehicle rental web app inspired by Airbnb.</p>
+          <a href="https://github.com/slavdefense/Car-rental-made-easy" class="btn btn-outline-primary" target="_blank">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="https://github.com/slavdefense" class="btn btn-dark" target="_blank">Github</a>
+  </div>
+</div>
 {% endblock %}
