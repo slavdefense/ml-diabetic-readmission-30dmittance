@@ -4,7 +4,7 @@
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange)]()
 [![Flask](https://img.shields.io/badge/Flask-Deployment-green)]()
 
-Interactive demo: **https://ml-diabetic-readmission-30dmittance-1.onrender.com/**  
+Interactive demo: **[https://ml-diabetic-readmission-30dmittance-1.onrender.com](https://ml-diabetic-readmission-30dmittance-1.onrender.com/mle)/**  
 Author: **Sagun Shrestha** · 📧 fssagunshrestha@gmail.com · 📞 (818)-930-0018 · GitHub: https://github.com/slavdefense
 
 ---
